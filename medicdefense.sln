@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicDefense.API", "MedicDefense.API\MedicDefense.API.csproj", "{C6FE3A3B-6F65-4E70-8048-0B59CC38B196}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6FE3A3B-6F65-4E70-8048-0B59CC38B196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FE3A3B-6F65-4E70-8048-0B59CC38B196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FE3A3B-6F65-4E70-8048-0B59CC38B196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FE3A3B-6F65-4E70-8048-0B59CC38B196}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
