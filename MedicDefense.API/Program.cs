@@ -17,12 +17,13 @@ builder.Services.AddControllers(
     {
         options.Conventions.Add(new KebabCaseRouteNamingConvention());   
     });
-// Database Connection String
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Database Connection String
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configure Database Context and Logging Levels
 builder.Services.AddDbContext<AppDbContext>(

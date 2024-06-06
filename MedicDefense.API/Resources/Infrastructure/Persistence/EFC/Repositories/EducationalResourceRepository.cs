@@ -24,7 +24,7 @@ public class EducationalResourceRepository : BaseRepository<EducationalResource>
             .FirstOrDefaultAsync(e => e.Title == Title && e.Author == Author);
     }
 
-    public async Task<EducationalResource?> FindByIdAsync(string Id)
+    public async Task<EducationalResource?> FindByIdAsync(int Id)
     {
         return await Context.Set<EducationalResource>()
             .FirstOrDefaultAsync(e => Equals(e.Id, Id));

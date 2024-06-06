@@ -16,7 +16,6 @@ public class EducationalResourceController(
     : ControllerBase
 {
     [HttpPost]
-    
     public async Task<ActionResult> CreateEducationalResource([FromBody]CreateEducationalResourceR resource)
     {
         var createEducationalResourceCommand =
@@ -25,35 +24,20 @@ public class EducationalResourceController(
         return CreatedAtAction(nameof(GetEducationalResourceById), new { id = result.Id },
             EducationalResourceFromEntityAssembler.ToResourceFromEntity(result));
     }
-    [HttpGet("{id}")]
     
-    public async Task<ActionResult> GetEducationalResourceById(string id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetEducationalResourceById(int id)
     {
         var getEducationalResourceByIdQuery = new GetEducationalResourceByIdQuery(id);
         var result = await educationalResourceQueryService.Handle(getEducationalResourceByIdQuery);
-        var resource = EducationalResourceFromEntityAssembler.ToResourceFromEntity(result);
-        return Ok(resource);
-    }
-    public async Task<ActionResult> GetEducationalResourceByTitle(string title)
-    {
-        var getEducationalResourceByTitleQuery = new GetEducationalResourceByTitleQuery(title);
-        var result = await educationalResourceQueryService.Handle(getEducationalResourceByTitleQuery);
-        var resource = EducationalResourceFromEntityAssembler.ToResourceFromEntity(result);
-        return Ok(resource);
-    }
-    public async Task<ActionResult> GetEducationalResourceByTitleAndAuthor(string title, string author)
-    {
-        var getEducationalResourceByTitleAndAuthorQuery = new GetEducationalResourceByTitleAndAuthorQuery(title, author);
-        var result = await educationalResourceQueryService.Handle(getEducationalResourceByTitleAndAuthorQuery);
+
+        if (result == null)
+        {
+            return NotFound();
+        }
+
         var resource = EducationalResourceFromEntityAssembler.ToResourceFromEntity(result);
         return Ok(resource);
     }
     
-    public async Task<ActionResult> GetAllEducationalResources()
-    {
-        var getAllEducationalResourcesQuery = new GetAllEducationalResourceQuery();
-        var result = await educationalResourceQueryService.Handle(getAllEducationalResourcesQuery);
-        var resources = result.Select(EducationalResourceFromEntityAssembler.ToResourceFromEntity);
-        return Ok(resources);
-    }
 }
