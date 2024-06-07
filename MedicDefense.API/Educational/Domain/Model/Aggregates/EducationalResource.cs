@@ -1,6 +1,6 @@
-﻿using MedicDefense.API.Resources.Domain.Model.Commands;
+﻿using MedicDefense.API.Educational.Domain.Model.Commands;
 
-namespace MedicDefense.API.Resources.Domain.Model.Aggregates;
+namespace MedicDefense.API.Educational.Domain.Model.Aggregates;
 
 public class EducationalResource
 {
@@ -10,7 +10,7 @@ public class EducationalResource
     public string Author { get; private set; }
     public string ContentType { get; private set; }
     public string VideoUrl { get; private set; }
-    
+
     protected EducationalResource()
     {
         this.Title = string.Empty;
