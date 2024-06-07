@@ -1,5 +1,12 @@
+using MedicDefense.API.LegalCase.Application.Internal.CommandServices;
+using MedicDefense.API.LegalCase.Application.Internal.QueryServices;
+using MedicDefense.API.LegalCase.Domain.Repositories;
+using MedicDefense.API.LegalCase.Domain.Services;
+using MedicDefense.API.LegalCase.Infrastructure.Persistence.EFC.Repositories;
+using MedicDefense.API.Shared.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
+using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +41,12 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<ILegalCaseRepository, LegalCaseRepository>();
+builder.Services.AddScoped<ILegalCaseQueryService, LegalCaseQueryService>();
+builder.Services.AddScoped<ILegalCaseCommandService, LegalCaseCommandService>();
 
 var app = builder.Build();
 
