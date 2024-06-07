@@ -22,7 +22,6 @@
       <Folder Include="Access\" />
       <Folder Include="Consultation\" />
       <Folder Include="Educational\" />
-      <Folder Include="Legal Case\" />
       <Folder Include="Notification\" />
       <Folder Include="Payment\" />
     </ItemGroup>
