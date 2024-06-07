@@ -1,6 +1,6 @@
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
-using MedicDefense.API.Resources.Domain.Model.Aggregates;
+using MedicDefense.API.Educational.Domain.Model.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;

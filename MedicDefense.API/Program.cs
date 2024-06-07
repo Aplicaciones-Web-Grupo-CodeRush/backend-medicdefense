@@ -1,8 +1,9 @@
-using MedicDefense.API.Resources.Application.Internal.CommandServices;
-using MedicDefense.API.Resources.Application.Internal.QueryServices;
-using MedicDefense.API.Resources.Domain.Repositories;
-using MedicDefense.API.Resources.Domain.Services;
-using MedicDefense.API.Resources.Infrastructure.Persistence.EFC.Repositories;
+using MedicDefense.API.Educational.Application.Internal.CommandServices;
+using MedicDefense.API.Educational.Application.Internal.QueryServices;
+using MedicDefense.API.Educational.Domain.Repositories;
+using MedicDefense.API.Educational.Domain.Services;
+using MedicDefense.API.Educational.Infrastructure.Persistence.EFC.Repositories;
+
 using MedicDefense.API.Shared.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
