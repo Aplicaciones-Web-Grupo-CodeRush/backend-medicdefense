@@ -20,6 +20,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         // Place here your entities configuration
 
         // Apply SnakeCase Naming Convention
-        builder.UseSnakeCaseNamingConvention();
+        builder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
 }
