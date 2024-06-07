@@ -11,6 +11,7 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+        <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -20,7 +21,6 @@
       <Folder Include="Educational\" />
       <Folder Include="Legal Case\" />
       <Folder Include="Notification\" />
-      <Folder Include="Payment\" />
     </ItemGroup>
 
 </Project>
