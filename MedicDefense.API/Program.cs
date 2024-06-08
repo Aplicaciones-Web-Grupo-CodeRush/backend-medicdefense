@@ -1,3 +1,10 @@
+
+using MedicDefense.API.LegalCase.Application.Internal.CommandServices;
+using MedicDefense.API.LegalCase.Application.Internal.QueryServices;
+using MedicDefense.API.LegalCase.Domain.Repositories;
+using MedicDefense.API.LegalCase.Domain.Services;
+using MedicDefense.API.LegalCase.Infrastructure.Persistence.EFC.Repositories;
+
 using MedicDefense.API.Educational.Application.Internal.CommandServices;
 using MedicDefense.API.Educational.Application.Internal.QueryServices;
 using MedicDefense.API.Educational.Domain.Repositories;
@@ -19,14 +26,11 @@ builder.Services.AddControllers(
         options.Conventions.Add(new KebabCaseRouteNamingConvention());   
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-// Database Connection String
+// Add Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configure Database Context and Logging Levels
+
 builder.Services.AddDbContext<AppDbContext>(
     options =>
     {
@@ -38,17 +42,23 @@ builder.Services.AddDbContext<AppDbContext>(
                     .EnableDetailedErrors();
             else if (builder.Environment.IsProduction())
                 options.UseMySQL(connectionString)
-                    .LogTo(Console.WriteLine, LogLevel.Information)
-                    .EnableSensitiveDataLogging()
-                    .EnableDetailedErrors();
+                    .LogTo(Console.WriteLine, LogLevel.Error)
+                    .EnableDetailedErrors();    
     });
 
+// Configure Lowercase URLs
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-// Shared Bounded Context Injection Configuration
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-// Resources Bounded Context Injection Configuration
+builder.Services.AddScoped<ILegalCaseRepository, LegalCaseRepository>();
+builder.Services.AddScoped<ILegalCaseQueryService, LegalCaseQueryService>();
+builder.Services.AddScoped<ILegalCaseCommandService, LegalCaseCommandService>();
+
 builder.Services.AddScoped<IEducationalResourceCommandService, EducationalResourceCommandService>();
 builder.Services.AddScoped<IEducationalResourceQueryService, EducationalResourceQueryService>();
 builder.Services.AddScoped<IEducationalResourceRepository, EducationalResourceRepository>();
@@ -61,6 +71,7 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<AppDbContext>();
     context.Database.EnsureCreated();
 }
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

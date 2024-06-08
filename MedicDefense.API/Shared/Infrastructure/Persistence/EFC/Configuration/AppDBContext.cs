@@ -19,6 +19,13 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         base.OnModelCreating(builder);
 
         // Place here your entities configuration
+        builder.Entity<LegalCase.Domain.Model.LegalCase>().ToTable("LegalCases");
+        builder.Entity<LegalCase.Domain.Model.LegalCase>().HasKey(l => l.Id);
+        builder.Entity<LegalCase.Domain.Model.LegalCase>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<LegalCase.Domain.Model.LegalCase>().Property(l => l.CaseNumber).IsRequired();
+        builder.Entity<LegalCase.Domain.Model.LegalCase>().Property(l => l.Description).IsRequired();
+        builder.Entity<LegalCase.Domain.Model.LegalCase>().Property(l => l.Status).IsRequired();
+
         builder.Entity<EducationalResource>().ToTable("EducationalResources");
         builder.Entity<EducationalResource>().HasKey(f => f.Id);
         builder.Entity<EducationalResource>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();

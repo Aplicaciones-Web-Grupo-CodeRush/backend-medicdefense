@@ -25,6 +25,7 @@ public static class StringExtensions
                 }
         }
     }
+
     public static string ToPlural(this string text)
     {
         return text.Pluralize(inputIsKnownToBeSingular:false);
