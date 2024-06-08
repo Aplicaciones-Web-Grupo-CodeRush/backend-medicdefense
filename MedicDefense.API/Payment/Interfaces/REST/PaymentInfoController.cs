@@ -10,9 +10,18 @@ namespace MedicDefense.API.Payment.Interfaces;
 [ApiController]
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
-public class PaymentInfoController(IPaymentInfoCommandService paymentInfoCommandService,
-    IPaymentInfoQueryService paymentInfoQueryService) : ControllerBase
+public class PaymentInfoController : ControllerBase
 {
+    private readonly IPaymentInfoCommandService paymentInfoCommandService;
+    private readonly IPaymentInfoQueryService paymentInfoQueryService;
+
+    public PaymentInfoController(
+        IPaymentInfoCommandService paymentInfoCommandService,
+        IPaymentInfoQueryService paymentInfoQueryService)
+    {
+        this.paymentInfoCommandService = paymentInfoCommandService;
+        this.paymentInfoQueryService = paymentInfoQueryService;
+    }
     [HttpPost]
     public async Task<IActionResult> CreatePaymentInfo([FromBody] CreatePaymentInfoResource createPaymentInfoResource)
     {

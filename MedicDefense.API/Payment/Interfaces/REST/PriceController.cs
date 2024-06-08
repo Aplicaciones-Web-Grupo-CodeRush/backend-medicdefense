@@ -9,9 +9,18 @@ namespace MedicDefense.API.Payment.Interfaces;
 [ApiController]
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
-public class PriceController(IPriceCommandService priceCommandService,
-    IPriceQueryService priceQueryService) : ControllerBase
+public class PriceController : ControllerBase
 {
+    private readonly IPriceCommandService priceCommandService;
+    private readonly IPriceQueryService priceQueryService;
+
+    public PriceController(
+        IPriceCommandService priceCommandService,
+        IPriceQueryService priceQueryService)
+    {
+        this.priceCommandService = priceCommandService;
+        this.priceQueryService = priceQueryService;
+    }
     [HttpPost]
     public async Task<IActionResult> CreatePrice([FromBody] CreatePriceResource createPriceResource)
     {

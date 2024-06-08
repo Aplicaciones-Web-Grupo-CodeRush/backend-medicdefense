@@ -10,8 +10,18 @@ namespace MedicDefense.API.Payment.Interfaces;
 [Route("/api/v1/prices/{priceId}/payments")]
 [Produces(MediaTypeNames.Application.Json)]
 [Tags("Prices")]
-public class PricePaymentInfoController(IPaymentInfoQueryService paymentInfoQueryService) : ControllerBase
+public class PricePaymentInfoController : ControllerBase
 {
+    private readonly IPaymentInfoCommandService paymentInfoCommandService;
+    private readonly IPaymentInfoQueryService paymentInfoQueryService;
+
+    public PricePaymentInfoController(
+        IPaymentInfoCommandService paymentInfoCommandService,
+        IPaymentInfoQueryService paymentInfoQueryService)
+    {
+        this.paymentInfoCommandService = paymentInfoCommandService;
+        this.paymentInfoQueryService = paymentInfoQueryService;
+    }
     [HttpGet]
     public async Task<IActionResult> GetPaymentInfoByPriceId([FromRoute] int priceId)
     {

@@ -24,7 +24,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<PaymentInfo>().HasKey(p => p.Id);
         builder.Entity<PaymentInfo>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<PaymentInfo>().Property(l => l.Description).IsRequired();
-        
+        /*
         builder.Entity<Price>().ToTable("prices");
         builder.Entity<Price>().HasKey(p => p.Id);
         builder.Entity<Price>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
@@ -51,7 +51,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .HasMany(c => c.PaymentInfos)
             .WithOne(p => p.CardInfo)
             .HasForeignKey(i => i.CardInfoId)
-            .HasPrincipalKey(p => p.Id);
+            .HasPrincipalKey(p => p.Id);*/
         
         // Apply SnakeCase Naming Convention
         builder.UseSnakeCaseNamingConvention();
