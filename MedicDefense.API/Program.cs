@@ -1,10 +1,4 @@
 
-using MedicDefense.API.Payment.Application.Internal.CommandServices;
-using MedicDefense.API.Payment.Application.Internal.QueryServices;
-using MedicDefense.API.Payment.Domain.Repositories;
-using MedicDefense.API.Payment.Domain.Services;
-using MedicDefense.API.Payment.Infrastructure.Persistence.EFC.Repositories;
-
 using MedicDefense.API.Consultation.Application.Interfaces;
 using MedicDefense.API.Consultation.Application.Services;
 using MedicDefense.API.Consultation.Infrastructure.Repositories;
@@ -40,6 +34,7 @@ using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(
@@ -71,6 +66,7 @@ builder.Services.AddDbContext<AppDbContext>(
 // Configure Lowercase URLs
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
@@ -97,27 +93,18 @@ builder.Services.AddSwaggerGen(
         c.EnableAnnotations();
     });
 
+// Configure Dependency Injection
 
 // Shared Bounded Context Injection Configuration
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-
-// Resources Bounded Context Injection Configuration
-builder.Services.AddScoped<IPaymentInfoCommandService, PaymentInfoCommandService>();
-builder.Services.AddScoped<IPaymentInfoQueryService, PaymentInfoQueryService>();
-builder.Services.AddScoped<IPaymentInfoRepository, PaymentInfoRepository>();
-builder.Services.AddScoped<IPriceCommandService, PriceCommandService>();
-builder.Services.AddScoped<IPriceQueryService, PriceQueryService>();
-builder.Services.AddScoped<IPriceRepository, PriceRepository>();
-builder.Services.AddScoped<ICardInfoCommandService, CardInfoCommandService>();
-builder.Services.AddScoped<ICardInfoQueryService, CardInfoQueryService>();
-builder.Services.AddScoped<ICardInfoRepository, CardInfoRepository>();
 
 // Communication Bounded Context Injection Configuration
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<INotificationCommandService, NotificationCommandService>();
 builder.Services.AddScoped<INotificationQueryService, NotificationQueryService>();
 builder.Services.AddScoped<INotificationContextFacade, NotificationContextFacade>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ILegalCaseRepository, LegalCaseRepository>();
 builder.Services.AddScoped<ILegalCaseQueryService, LegalCaseQueryService>();
@@ -133,7 +120,7 @@ builder.Services.AddScoped<ILawyerRepository, LawyerRepository>();
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
 var app = builder.Build();
 
-
+// Verify Database objects are created
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
