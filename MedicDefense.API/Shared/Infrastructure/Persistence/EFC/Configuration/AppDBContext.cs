@@ -1,6 +1,4 @@
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
-using MedicDefense.API.Payment.Domain.Model.Aggregates;
-using MedicDefense.API.Payment.Domain.Model.Entities;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 
 using MedicDefense.API.Communication.Domain.Model.Aggregates;
@@ -67,6 +65,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .HasForeignKey(i => i.CardInfoId)
             .HasPrincipalKey(p => p.Id);
 
+
         builder.Entity<LegalCase.Domain.Model.LegalCase>().ToTable("LegalCases");
         builder.Entity<LegalCase.Domain.Model.LegalCase>().HasKey(l => l.Id);
         builder.Entity<LegalCase.Domain.Model.LegalCase>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
@@ -83,6 +82,5 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<EducationalResource>().Property(f => f.VideoUrl).IsRequired();
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         
-
     }
 }
