@@ -26,7 +26,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<EducationalResource>().Property(f => f.Author).IsRequired();
         builder.Entity<EducationalResource>().Property(f => f.ContentType).IsRequired();
         builder.Entity<EducationalResource>().Property(f => f.VideoUrl).IsRequired();
-        builder.UseSnakeCaseNamingConvention();
+        builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         
     }
 }
