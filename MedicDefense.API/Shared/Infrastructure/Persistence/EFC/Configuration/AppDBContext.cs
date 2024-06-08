@@ -53,7 +53,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<CardInfo>().Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<CardInfo>().Property(c => c.CardNumber).IsRequired();
         builder.Entity<CardInfo>().Property(c => c.SecurityNumber).IsRequired();
-        builder.Entity<CardInfo>().Property(c => c.ExpirationDate).IsRequired();
         
         // Price Relationships
         builder.Entity<Price>()
@@ -67,9 +66,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .WithOne(p => p.CardInfo)
             .HasForeignKey(i => i.CardInfoId)
             .HasPrincipalKey(p => p.Id);
-        
-        // Apply SnakeCase Naming Convention
-        builder.UseSnakeCaseNamingConvention();
 
         builder.Entity<LegalCase.Domain.Model.LegalCase>().ToTable("LegalCases");
         builder.Entity<LegalCase.Domain.Model.LegalCase>().HasKey(l => l.Id);
