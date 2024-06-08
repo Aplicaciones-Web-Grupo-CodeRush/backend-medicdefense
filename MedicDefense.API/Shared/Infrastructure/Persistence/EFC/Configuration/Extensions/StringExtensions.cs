@@ -1,4 +1,4 @@
-
+using Humanizer;
 namespace MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 
 public static class StringExtensions
@@ -24,5 +24,10 @@ public static class StringExtensions
                     yield return e.Current;
                 }
         }
+    }
+
+    public static string ToPlural(this string text)
+    {
+        return text.Pluralize(inputIsKnownToBeSingular:false);
     }
 }
