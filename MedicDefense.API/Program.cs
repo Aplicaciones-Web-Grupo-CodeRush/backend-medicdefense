@@ -73,12 +73,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPaymentInfoCommandService, PaymentInfoCommandService>();
 builder.Services.AddScoped<IPaymentInfoQueryService, PaymentInfoQueryService>();
 builder.Services.AddScoped<IPaymentInfoRepository, PaymentInfoRepository>();
-/*builder.Services.AddScoped<IPriceCommandService, PriceCommandService>();
+builder.Services.AddScoped<IPriceCommandService, PriceCommandService>();
 builder.Services.AddScoped<IPriceQueryService, PriceQueryService>();
 builder.Services.AddScoped<IPriceRepository, PriceRepository>();
 builder.Services.AddScoped<ICardInfoCommandService, CardInfoCommandService>();
 builder.Services.AddScoped<ICardInfoQueryService, CardInfoQueryService>();
-builder.Services.AddScoped<ICardInfoRepository, CardInfoRepository>();*/
+builder.Services.AddScoped<ICardInfoRepository, CardInfoRepository>();
 
 var app = builder.Build();
 
