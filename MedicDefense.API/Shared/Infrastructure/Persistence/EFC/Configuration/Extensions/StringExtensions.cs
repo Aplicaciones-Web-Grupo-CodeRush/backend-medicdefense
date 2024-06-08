@@ -30,5 +30,4 @@ public static class StringExtensions
     {
         return text.Pluralize(inputIsKnownToBeSingular:false);
     }
-
 }
