@@ -54,6 +54,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .HasPrincipalKey(p => p.Id);*/
         
         // Apply SnakeCase Naming Convention
-        builder.UseSnakeCaseNamingConvention();
+        builder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
 }
