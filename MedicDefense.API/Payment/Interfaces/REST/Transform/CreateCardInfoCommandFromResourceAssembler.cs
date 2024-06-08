@@ -8,6 +8,6 @@ public class CreateCardInfoCommandFromResourceAssembler
     public static CreateCardInfoCommand ToCommandFromResource(CreateCardInfoResource resource)
     {
         return new CreateCardInfoCommand(resource.CardNumber, resource.SecurityNumber,
-            resource.CardHolderName, resource.Month, resource.Year);
+            resource.CardHolderName);
     }
 }

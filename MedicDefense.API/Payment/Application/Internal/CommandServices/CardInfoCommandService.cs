@@ -10,7 +10,7 @@ public class CardInfoCommandService(ICardInfoRepository cardInfoRepository, IUni
 {
     public async Task<CardInfo?> Handle(CreateCardInfoCommand command)
     {
-        var cardInfo = new CardInfo(command.CardNumber, command.SecurityNumber, command.CardHolderName, command.Month, command.Year);
+        var cardInfo = new CardInfo(command.CardNumber, command.SecurityNumber, command.CardHolderName);
         await cardInfoRepository.AddAsync(cardInfo); 
         await unitOfWork.CompleteAsync();
         return cardInfo;

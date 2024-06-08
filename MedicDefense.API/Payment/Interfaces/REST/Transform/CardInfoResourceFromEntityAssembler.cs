@@ -7,7 +7,6 @@ public class CardInfoResourceFromEntityAssembler
 {
     public static CardInfoResource ToResourceFromEntity(CardInfo entity)
     {
-        return new CardInfoResource(entity.Id, entity.CardNumber, entity.SecurityNumber, entity.CardHolderName,
-            entity.ExpirationDate.Month, entity.ExpirationDate.Year);
+        return new CardInfoResource(entity.Id, entity.CardNumber, entity.SecurityNumber, entity.CardHolderName);
     }
 }

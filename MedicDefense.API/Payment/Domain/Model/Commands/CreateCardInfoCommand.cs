@@ -3,6 +3,4 @@
 public record CreateCardInfoCommand(
     string CardNumber, 
     string SecurityNumber, 
-    string CardHolderName, 
-    int Month, 
-    int Year);
+    string CardHolderName);
