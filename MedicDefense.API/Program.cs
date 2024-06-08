@@ -1,3 +1,4 @@
+
 using MedicDefense.API.Communication.Application.Internal.CommandServices;
 using MedicDefense.API.Communication.Application.Internal.QueryServices;
 using MedicDefense.API.Communication.Domain.Repositories;
@@ -5,6 +6,20 @@ using MedicDefense.API.Communication.Domain.Services;
 using MedicDefense.API.Communication.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.Communication.Interfaces.ACL;
 using MedicDefense.API.Communication.Interfaces.ACL.Services;
+
+
+using MedicDefense.API.LegalCase.Application.Internal.CommandServices;
+using MedicDefense.API.LegalCase.Application.Internal.QueryServices;
+using MedicDefense.API.LegalCase.Domain.Repositories;
+using MedicDefense.API.LegalCase.Domain.Services;
+using MedicDefense.API.LegalCase.Infrastructure.Persistence.EFC.Repositories;
+
+using MedicDefense.API.Educational.Application.Internal.CommandServices;
+using MedicDefense.API.Educational.Application.Internal.QueryServices;
+using MedicDefense.API.Educational.Domain.Repositories;
+using MedicDefense.API.Educational.Domain.Services;
+using MedicDefense.API.Educational.Infrastructure.Persistence.EFC.Repositories;
+
 using MedicDefense.API.Shared.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -15,8 +30,11 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers( options => options.Conventions.Add(new KebabCaseRouteNamingConvention()));
+builder.Services.AddControllers(
+    options =>
+    {
+        options.Conventions.Add(new KebabCaseRouteNamingConvention());   
+    });
 
 // Add Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -78,9 +96,18 @@ builder.Services.AddScoped<INotificationCommandService, NotificationCommandServi
 builder.Services.AddScoped<INotificationQueryService, NotificationQueryService>();
 builder.Services.AddScoped<INotificationContextFacade, NotificationContextFacade>();
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<ILegalCaseRepository, LegalCaseRepository>();
+builder.Services.AddScoped<ILegalCaseQueryService, LegalCaseQueryService>();
+builder.Services.AddScoped<ILegalCaseCommandService, LegalCaseCommandService>();
+
+builder.Services.AddScoped<IEducationalResourceCommandService, EducationalResourceCommandService>();
+builder.Services.AddScoped<IEducationalResourceQueryService, EducationalResourceQueryService>();
+builder.Services.AddScoped<IEducationalResourceRepository, EducationalResourceRepository>();
 var app = builder.Build();
 
-// Verify Database Objects are created
+// Verify Database objects are created
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
