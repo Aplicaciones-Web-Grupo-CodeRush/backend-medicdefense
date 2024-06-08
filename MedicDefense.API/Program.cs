@@ -1,4 +1,11 @@
 
+using MedicDefense.API.Consultation.Application.Interfaces;
+using MedicDefense.API.Consultation.Application.Services;
+using MedicDefense.API.Consultation.Infrastructure.Repositories;
+using MedicDefense.API.Consultation.Interfaces;
+using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
+
+
 using MedicDefense.API.Communication.Application.Internal.CommandServices;
 using MedicDefense.API.Communication.Application.Internal.QueryServices;
 using MedicDefense.API.Communication.Domain.Repositories;
@@ -27,9 +34,9 @@ using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers(
     options =>
     {
@@ -58,6 +65,7 @@ builder.Services.AddDbContext<AppDbContext>(
 
 // Configure Lowercase URLs
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -105,6 +113,11 @@ builder.Services.AddScoped<ILegalCaseCommandService, LegalCaseCommandService>();
 builder.Services.AddScoped<IEducationalResourceCommandService, EducationalResourceCommandService>();
 builder.Services.AddScoped<IEducationalResourceQueryService, EducationalResourceQueryService>();
 builder.Services.AddScoped<IEducationalResourceRepository, EducationalResourceRepository>();
+
+builder.Services.AddScoped<IConsultRepository, ConsultRepository>(); 
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); 
+builder.Services.AddScoped<ILawyerRepository, LawyerRepository>(); 
+builder.Services.AddScoped<IConsultationService, ConsultationService>();
 var app = builder.Build();
 
 // Verify Database objects are created
