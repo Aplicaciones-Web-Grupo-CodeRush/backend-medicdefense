@@ -1,8 +1,6 @@
 
-using MedicDefense.API.Consultation.Application.Interfaces;
-using MedicDefense.API.Consultation.Application.Services;
+
 using MedicDefense.API.Consultation.Infrastructure.Repositories;
-using MedicDefense.API.Consultation.Interfaces;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
 
@@ -13,8 +11,10 @@ using MedicDefense.API.Communication.Domain.Services;
 using MedicDefense.API.Communication.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.Communication.Interfaces.ACL;
 using MedicDefense.API.Communication.Interfaces.ACL.Services;
-
-
+using MedicDefense.API.Consultation.Application.CommandServices;
+using MedicDefense.API.Consultation.Application.QueryServices;
+using MedicDefense.API.Consultation.Domain.Repositories;
+using MedicDefense.API.Consultation.Domain.Services;
 using MedicDefense.API.LegalCase.Application.Internal.CommandServices;
 using MedicDefense.API.LegalCase.Application.Internal.QueryServices;
 using MedicDefense.API.LegalCase.Domain.Repositories;
@@ -117,7 +117,8 @@ builder.Services.AddScoped<IEducationalResourceRepository, EducationalResourceRe
 builder.Services.AddScoped<IConsultRepository, ConsultRepository>(); 
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); 
 builder.Services.AddScoped<ILawyerRepository, LawyerRepository>(); 
-builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IConsultCommandService, ConsultCommandService>();
+builder.Services.AddScoped<IConsultQueryService, ConsultQueryService>();
 var app = builder.Build();
 
 // Verify Database objects are created
