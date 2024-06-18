@@ -1,39 +1,46 @@
 ﻿using MedicDefense.API.Consultation.Domain;
-using MedicDefense.API.Consultation.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using MedicDefense.API.Consultation.Domain.Model.Aggregates;
+using MedicDefense.API.Consultation.Domain.Repositories;
+using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
 namespace MedicDefense.API.Consultation.Infrastructure.Repositories;
 
 public class LawyerRepository : ILawyerRepository
 {
-    private readonly List<Lawyer> _lawyers = new List<Lawyer>();
+    private readonly AppDbContext _context;
+    public LawyerRepository(AppDbContext context)
+    {
+        _context = context;
+    }
 
     public void Add(Lawyer lawyer)
     {
-        _lawyers.Add(lawyer);
+        _context.Lawyers.Add(lawyer);
     }
 
     public Lawyer Get(int id)
     {
-        return _lawyers.FirstOrDefault(l => l.Id == id);
+        return _context.Lawyers.FirstOrDefault(l => l.Id == id);
     }
 
     public void Update(Lawyer lawyer)
     {
-        var index = _lawyers.FindIndex(l => l.Id == lawyer.Id);
-        if (index != -1)
-        {
-            _lawyers[index] = lawyer;
-        }
+        _context.Lawyers.Update(lawyer);
     }
 
     public void Delete(int id)
     {
-        var lawyer = _lawyers.FirstOrDefault(l => l.Id == id);
+        var lawyer = _context.Lawyers.FirstOrDefault(l => l.Id == id);
         if (lawyer != null)
         {
-            _lawyers.Remove(lawyer);
+            _context.Lawyers.Remove(lawyer);
         }
+    }
+
+    public  async Task SaveChangesAsync()
+    {
+        await _context.SaveChangesAsync();    
     }
 }
