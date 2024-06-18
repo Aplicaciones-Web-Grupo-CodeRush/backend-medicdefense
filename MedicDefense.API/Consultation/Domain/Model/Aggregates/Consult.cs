@@ -10,6 +10,10 @@ public class Consult
     public Doctor Doctor { get; private set; }
     public Lawyer Lawyer { get; private set; }
 
+    //List of Consults
+    public static List<Consult> Consults { get; private set; } = new List<Consult>();
+
+    
     protected Consult()
     {
         this.Date = default;

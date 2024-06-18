@@ -10,6 +10,7 @@ public interface IConsultRepository
     Consult Get(int id);
     void Update(Consult consult);
     void Delete(int id);
+    List<Consult> GetAll(); 
     
     Task SaveChangesAsync();
 }

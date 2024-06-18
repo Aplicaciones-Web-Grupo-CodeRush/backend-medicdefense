@@ -38,7 +38,14 @@ public class ConsultationController : ControllerBase
         var consultRes = ConsultResFromEntityAssembler.ToResourceFromEntity(consult);
         return consultRes;
     }
-
+    
+    // GET: api/Consultation
+    [HttpGet]
+    public ActionResult<List<Consult>> Get()
+    {
+        return Ok(_consultCommandService.GetAllConsults());
+    }
+    
     // POST: api/Consultation
     [HttpPost]
     public async Task<IActionResult> CreateConsult([FromBody] CreateConsultRes consultRes)

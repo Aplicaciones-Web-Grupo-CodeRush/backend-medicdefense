@@ -17,6 +17,11 @@ public class ConsultCommandService : IConsultCommandService
         _doctorRepository = doctorRepository;
         _lawyerRepository = lawyerRepository;
     }
+    
+    public  List<Consult> GetAllConsults()
+    {
+        return _consultRepository.GetAll();
+    }
 
 
     public void CreateConsult(Consult consult)

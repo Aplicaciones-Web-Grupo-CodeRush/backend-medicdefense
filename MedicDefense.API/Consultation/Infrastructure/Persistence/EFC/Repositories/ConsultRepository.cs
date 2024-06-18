@@ -101,7 +101,15 @@ public class ConsultRepository : BaseRepository<Consult>, IConsultRepository
             Context.Set<Consult>().Remove(consult);
         }
     }
-    
+
+    public List<Consult> GetAll()
+    {
+        return Context.Set<Consult>()
+            .Include(c => c.Doctor)
+            .Include(c => c.Lawyer)
+            .ToList();
+    }
+
     public async Task SaveChangesAsync()
     {
         await Context.SaveChangesAsync();

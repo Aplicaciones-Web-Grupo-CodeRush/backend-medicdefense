@@ -9,6 +9,8 @@ public interface IConsultCommandService
     void UpdateConsult(Consult consult);
     void DeleteConsult(int id);
     void AddDoctor(Doctor doctor);
+    
+    List<Consult> GetAllConsults();
 
     Task<Consult> HandleCreateConsultCommand(CreateConsultCommand command);
     Task<Doctor> HandleCreateDoctorCommand(CreateDoctorCommand command);
