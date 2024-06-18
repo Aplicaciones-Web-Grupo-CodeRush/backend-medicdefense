@@ -7,7 +7,7 @@ using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace MedicDefense.API.Consultation.Infrastructure.Repositories;
+namespace MedicDefense.API.Consultation.Infrastructure.Persistence.EFC.Repositories;
 
 public class ConsultRepository : BaseRepository<Consult>, IConsultRepository
 {

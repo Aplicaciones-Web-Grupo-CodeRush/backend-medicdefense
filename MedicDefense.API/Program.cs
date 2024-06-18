@@ -1,6 +1,6 @@
 
 
-using MedicDefense.API.Consultation.Infrastructure.Repositories;
+using MedicDefense.API.Consultation.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
 
@@ -15,6 +15,7 @@ using MedicDefense.API.Consultation.Application.CommandServices;
 using MedicDefense.API.Consultation.Application.QueryServices;
 using MedicDefense.API.Consultation.Domain.Repositories;
 using MedicDefense.API.Consultation.Domain.Services;
+using MedicDefense.API.Consultation.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.LegalCase.Application.Internal.CommandServices;
 using MedicDefense.API.LegalCase.Application.Internal.QueryServices;
 using MedicDefense.API.LegalCase.Domain.Repositories;

@@ -5,7 +5,7 @@ using MedicDefense.API.Consultation.Domain.Model.Aggregates;
 using MedicDefense.API.Consultation.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
-namespace MedicDefense.API.Consultation.Infrastructure.Repositories;
+namespace MedicDefense.API.Consultation.Infrastructure.Persistence.EFC.Repositories;
 
 public class LawyerRepository : ILawyerRepository
 {

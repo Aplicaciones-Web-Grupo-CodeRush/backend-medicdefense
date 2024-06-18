@@ -2,7 +2,7 @@ using MedicDefense.API.Consultation.Domain.Model.Aggregates;
 using MedicDefense.API.Consultation.Domain.Model.Queries;
 using MedicDefense.API.Consultation.Domain.Repositories;
 using MedicDefense.API.Consultation.Domain.Services;
-using MedicDefense.API.Consultation.Infrastructure.Repositories;
+using MedicDefense.API.Consultation.Infrastructure.Persistence.EFC.Repositories;
 
 namespace MedicDefense.API.Consultation.Application.QueryServices;
 
