@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-namespace ACME.LearningCenterPlatform.API.Shared.Infrastructure.Interfaces.ASP.Configuration.Extensions;
+namespace MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration.Extensions;
 
 public static class ModelStateExtensions
 {

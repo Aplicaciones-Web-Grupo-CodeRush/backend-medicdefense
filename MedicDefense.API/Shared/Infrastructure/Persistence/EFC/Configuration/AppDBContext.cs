@@ -4,7 +4,7 @@ using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using MedicDefense.API.Communication.Domain.Model.Aggregates;
 
 using MedicDefense.API.Educational.Domain.Model.Aggregates;
-
+using MedicDefense.API.IAM.Domain.Model.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -46,6 +46,24 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<EducationalResource>().Property(f => f.Author).IsRequired();
         builder.Entity<EducationalResource>().Property(f => f.ContentType).IsRequired();
         builder.Entity<EducationalResource>().Property(f => f.VideoUrl).IsRequired();
+
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().ToTable("Payments");
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().HasKey(p => p.Id);
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.CardNumber).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.ExpirationMonth).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.ExpirationYear).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.SecurityNumber).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.Amount).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.PayerId).IsRequired();
+        builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.ReceiverId).IsRequired();
+        
+        builder.Entity<User>().HasKey(u => u.Id);
+        builder.Entity<User>().Property(u => u.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<User>().Property(u => u.Username).IsRequired();
+        builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
+        
+        
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         
     }

@@ -26,7 +26,23 @@ using MedicDefense.API.Educational.Application.Internal.QueryServices;
 using MedicDefense.API.Educational.Domain.Repositories;
 using MedicDefense.API.Educational.Domain.Services;
 using MedicDefense.API.Educational.Infrastructure.Persistence.EFC.Repositories;
-
+using MedicDefense.API.IAM.Application.Internal.CommandServices;
+using MedicDefense.API.IAM.Application.Internal.OutboundServices;
+using MedicDefense.API.IAM.Application.Internal.QueryServices;
+using MedicDefense.API.IAM.Domain.Repositories;
+using MedicDefense.API.IAM.Domain.Services;
+using MedicDefense.API.IAM.Infrastructure.Hashing.BCrypt.Services;
+using MedicDefense.API.IAM.Infrastructure.Persistence.EFC.Repositories;
+using MedicDefense.API.IAM.Infrastructure.Pipeline.Middleware.Extensions;
+using MedicDefense.API.IAM.Infrastructure.Tokens.JWT.Configuration;
+using MedicDefense.API.IAM.Infrastructure.Tokens.JWT.Services;
+using MedicDefense.API.IAM.Interfaces.ACL;
+using MedicDefense.API.IAM.Interfaces.ACL.Services;
+using MedicDefense.API.Payment.Application.Internal.CommandServices;
+using MedicDefense.API.Payment.Application.Internal.QueryServices;
+using MedicDefense.API.Payment.Domain.Repositories;
+using MedicDefense.API.Payment.Domain.Services;
+using MedicDefense.API.Payment.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.Shared.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -91,7 +107,38 @@ builder.Services.AddSwaggerGen(
                 }
             });
         c.EnableAnnotations();
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Description = "Please enter token",
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            BearerFormat = "JWT",
+            Scheme = "bearer"
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Id = "Bearer", Type = ReferenceType.SecurityScheme
+                    } 
+                }, 
+                Array.Empty<string>()
+            }
+        });
     });
+
+// Add CORS Policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllPolicy",
+        policy => policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 // Configure Dependency Injection
 
@@ -118,6 +165,20 @@ builder.Services.AddScoped<IConsultRepository, ConsultRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); 
 builder.Services.AddScoped<ILawyerRepository, LawyerRepository>(); 
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentCommandService, PaymentCommandService>();
+builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
+
+// IAM Bounded Context Injection Configuration
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IHashingService, HashingService>();
+builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
+
 var app = builder.Build();
 
 // Verify Database objects are created
@@ -134,6 +195,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Add authorization middleware to pipeline
+app.UseRequestAuthorization();
 
 app.UseHttpsRedirection();
 
