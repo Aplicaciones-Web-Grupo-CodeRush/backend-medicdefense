@@ -26,7 +26,11 @@ using MedicDefense.API.Educational.Application.Internal.QueryServices;
 using MedicDefense.API.Educational.Domain.Repositories;
 using MedicDefense.API.Educational.Domain.Services;
 using MedicDefense.API.Educational.Infrastructure.Persistence.EFC.Repositories;
-
+using MedicDefense.API.Payment.Application.Internal.CommandServices;
+using MedicDefense.API.Payment.Application.Internal.QueryServices;
+using MedicDefense.API.Payment.Domain.Repositories;
+using MedicDefense.API.Payment.Domain.Services;
+using MedicDefense.API.Payment.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.Shared.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -118,6 +122,11 @@ builder.Services.AddScoped<IConsultRepository, ConsultRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); 
 builder.Services.AddScoped<ILawyerRepository, LawyerRepository>(); 
 builder.Services.AddScoped<IConsultationService, ConsultationService>();
+
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentCommandService, PaymentCommandService>();
+builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
+
 var app = builder.Build();
 
 // Verify Database objects are created
