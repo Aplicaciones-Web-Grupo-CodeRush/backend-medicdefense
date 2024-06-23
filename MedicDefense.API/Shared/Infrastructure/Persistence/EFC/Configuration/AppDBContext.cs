@@ -3,6 +3,10 @@ using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 
 using MedicDefense.API.Communication.Domain.Model.Aggregates;
 
+using MedicDefense.API.Communication.Domain.Model.Aggregates;
+using MedicDefense.API.Consultation.Domain.Model.Aggregates;
+using MedicDefense.API.Educational.Domain.Model.Aggregates;
+
 using MedicDefense.API.Educational.Domain.Model.Aggregates;
 using MedicDefense.API.IAM.Domain.Model.Aggregates;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +15,10 @@ namespace MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
 public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
+    
+    public DbSet<Doctor> Doctors { get; set; } 
+    public DbSet<Lawyer> Lawyers { get; set; }
+    
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
         base.OnConfiguring(builder);
@@ -63,6 +71,24 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<User>().Property(u => u.Username).IsRequired();
         builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
         
+        builder.Entity<Consult>().ToTable("Consults");
+        builder.Entity<Consult>().HasKey(c => c.Id);
+        builder.Entity<Consult>().Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Consult>().HasOne(c => c.Doctor).WithMany();
+        builder.Entity<Consult>().HasOne(c => c.Lawyer).WithMany();
+
+
+        builder.Entity<Doctor>().ToTable("Doctors");
+        builder.Entity<Doctor>().HasKey(d => d.Id);
+        builder.Entity<Doctor>().Property(d => d.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Doctor>().Property(d => d.Name).IsRequired();
+        builder.Entity<Doctor>().Property(d => d.Specialty).IsRequired();
+        
+        builder.Entity<Lawyer>().ToTable("Lawyers");
+        builder.Entity<Lawyer>().HasKey(l => l.Id);
+        builder.Entity<Lawyer>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Lawyer>().Property(l => l.Name).IsRequired();
+        builder.Entity<Lawyer>().Property(l => l.Specialty).IsRequired();
         
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         

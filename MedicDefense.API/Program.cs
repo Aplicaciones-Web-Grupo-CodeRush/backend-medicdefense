@@ -1,7 +1,12 @@
 
-using MedicDefense.API.Consultation.Application.Interfaces;
-using MedicDefense.API.Consultation.Application.Services;
-using MedicDefense.API.Consultation.Infrastructure.Repositories;
+
+using MedicDefense.API.Consultation.Infrastructure.Persistence.EFC.Repositories;
+
+using MedicDefense.API.Consultation.Application.CommandServices;
+using MedicDefense.API.Consultation.Application.QueryServices;
+using MedicDefense.API.Consultation.Domain.Repositories;
+using MedicDefense.API.Consultation.Domain.Services;
+
 using MedicDefense.API.Consultation.Interfaces;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 
@@ -164,7 +169,8 @@ builder.Services.AddScoped<IEducationalResourceRepository, EducationalResourceRe
 builder.Services.AddScoped<IConsultRepository, ConsultRepository>(); 
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>(); 
 builder.Services.AddScoped<ILawyerRepository, LawyerRepository>(); 
-builder.Services.AddScoped<IConsultationService, ConsultationService>();
+builder.Services.AddScoped<IConsultCommandService, ConsultCommandService>();
+builder.Services.AddScoped<IConsultQueryService, ConsultQueryService>();
 
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentCommandService, PaymentCommandService>();
