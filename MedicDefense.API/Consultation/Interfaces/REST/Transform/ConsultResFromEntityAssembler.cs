@@ -19,6 +19,6 @@ public static class ConsultResFromEntityAssembler
             lawyerRes = new LawyerRes(consult.Lawyer.Id, consult.Lawyer.Name, consult.Lawyer.Specialty);
         }
 
-        return new ConsultRes(consult.Id, consult.Date, consult.LegalIssue, doctorRes, lawyerRes);
+        return new ConsultRes(consult.Id, consult.Date, consult.LegalIssue, consult.Description, doctorRes, lawyerRes);
     }
 }

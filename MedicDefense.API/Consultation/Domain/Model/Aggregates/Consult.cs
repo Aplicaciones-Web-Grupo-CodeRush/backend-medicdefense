@@ -7,6 +7,8 @@ public class Consult
     public int Id { get; private set; }
     public DateTime Date { get; private set; }
     public string LegalIssue { get; private set; }
+    
+    public string Description { get; private set; }
     public Doctor Doctor { get; private set; }
     public Lawyer Lawyer { get; private set; }
 
@@ -14,6 +16,7 @@ public class Consult
     {
         this.Date = default;
         this.LegalIssue = string.Empty;
+        this.Description = string.Empty;
         this.Doctor = null;
         this.Lawyer = null;
     }
@@ -22,6 +25,7 @@ public class Consult
     {
         this.Date = command.Date;
         this.LegalIssue = command.LegalIssue;
+        this.Description = command.Description;
         this.Doctor = command.Doctor;
         this.Lawyer = command.Lawyer;
     }

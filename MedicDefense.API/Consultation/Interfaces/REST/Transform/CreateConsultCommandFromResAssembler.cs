@@ -8,7 +8,7 @@ public static class CreateConsultCommandFromResAssembler
 {
     public static CreateConsultCommand ToCommandFromResource(CreateConsultRes resource)
     {
-        return new CreateConsultCommand(resource.Date, resource.LegalIssue, 
+        return new CreateConsultCommand(resource.Date, resource.LegalIssue, resource.Description,
             new Doctor(resource.Doctor.Id, resource.Doctor.Name, resource.Doctor.Specialty), 
             new Lawyer(resource.Lawyer.Id, resource.Lawyer.Name, resource.Lawyer.Specialty));
     }

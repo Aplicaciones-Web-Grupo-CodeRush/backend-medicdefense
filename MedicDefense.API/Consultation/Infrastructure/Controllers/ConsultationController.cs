@@ -12,7 +12,7 @@ using MedicDefense.API.Consultation.Interfaces.REST.Transform;
 namespace MedicDefense.API.Consultation.Infrastructure.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 
 public class ConsultationController : ControllerBase
