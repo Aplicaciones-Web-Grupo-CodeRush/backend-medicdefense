@@ -27,4 +27,8 @@ public class EducationalResourceQueryService(IEducationalResourceRepository educ
     {
         return await educationalResourceRepository.FindByAuthorAndTitleAsync(query.Author, query.Title);
     }
+    public async Task<IEnumerable<EducationalResource>> Handle(GetAllEducationalResourceQuery query)
+    {
+        return await educationalResourceRepository.ListAsync();
+    }
 }

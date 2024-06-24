@@ -7,8 +7,7 @@ using MedicDefense.API.Communication.Domain.Model.Aggregates;
 using MedicDefense.API.Consultation.Domain.Model.Aggregates;
 using MedicDefense.API.Educational.Domain.Model.Aggregates;
 
-using MedicDefense.API.Educational.Domain.Model.Aggregates;
-using MedicDefense.API.IAM.Domain.Model.Aggregates;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -65,11 +64,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.Amount).IsRequired();
         builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.PayerId).IsRequired();
         builder.Entity<Payment.Domain.Model.Aggregates.Payment>().Property(p => p.ReceiverId).IsRequired();
-        
-        builder.Entity<User>().HasKey(u => u.Id);
-        builder.Entity<User>().Property(u => u.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<User>().Property(u => u.Username).IsRequired();
-        builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
         
         builder.Entity<Consult>().ToTable("Consults");
         builder.Entity<Consult>().HasKey(c => c.Id);

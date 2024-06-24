@@ -9,4 +9,5 @@ public interface IEducationalResourceQueryService
     Task<EducationalResource> Handle(GetEducationalResourceByTitleQuery query);
     Task<EducationalResource> Handle(GetEducationalResourceByAuthorQuery query);
     Task<EducationalResource> Handle(GetEducationalResourceByAuthorAndTitleQuery query);
+    Task<IEnumerable<EducationalResource>> Handle(GetAllEducationalResourceQuery query);
 }

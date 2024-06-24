@@ -32,7 +32,14 @@ namespace MedicDefense.API.Educational.Interfaces.REST
             return CreatedAtAction(nameof(GetEducationalResourceById), new { id = result.Id },
                 EducationalResourceResFromEntityAssembler.toResourceFromEntity(result));
         }
-
+        [HttpGet]
+        public async Task<ActionResult> GetAllEducationalResources()
+        {
+            var getAllEducationalResourcesQuery = new GetAllEducationalResourceQuery();
+            var results = await educationalResourceQueryService.Handle(getAllEducationalResourcesQuery);
+            var resources = results.Select(EducationalResourceResFromEntityAssembler.toResourceFromEntity);
+            return Ok(resources);
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult> GetEducationalResourceById(int id)
         {

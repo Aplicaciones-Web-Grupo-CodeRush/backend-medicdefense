@@ -31,18 +31,7 @@ using MedicDefense.API.Educational.Application.Internal.QueryServices;
 using MedicDefense.API.Educational.Domain.Repositories;
 using MedicDefense.API.Educational.Domain.Services;
 using MedicDefense.API.Educational.Infrastructure.Persistence.EFC.Repositories;
-using MedicDefense.API.IAM.Application.Internal.CommandServices;
-using MedicDefense.API.IAM.Application.Internal.OutboundServices;
-using MedicDefense.API.IAM.Application.Internal.QueryServices;
-using MedicDefense.API.IAM.Domain.Repositories;
-using MedicDefense.API.IAM.Domain.Services;
-using MedicDefense.API.IAM.Infrastructure.Hashing.BCrypt.Services;
-using MedicDefense.API.IAM.Infrastructure.Persistence.EFC.Repositories;
-using MedicDefense.API.IAM.Infrastructure.Pipeline.Middleware.Extensions;
-using MedicDefense.API.IAM.Infrastructure.Tokens.JWT.Configuration;
-using MedicDefense.API.IAM.Infrastructure.Tokens.JWT.Services;
-using MedicDefense.API.IAM.Interfaces.ACL;
-using MedicDefense.API.IAM.Interfaces.ACL.Services;
+
 using MedicDefense.API.Payment.Application.Internal.CommandServices;
 using MedicDefense.API.Payment.Application.Internal.QueryServices;
 using MedicDefense.API.Payment.Domain.Repositories;
@@ -57,6 +46,17 @@ using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowMyFrontend",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5173/") // Replace with your frontend URL
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 builder.Services.AddControllers(
     options =>
@@ -176,14 +176,7 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentCommandService, PaymentCommandService>();
 builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
 
-// IAM Bounded Context Injection Configuration
-builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserCommandService, UserCommandService>();
-builder.Services.AddScoped<IUserQueryService, UserQueryService>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IHashingService, HashingService>();
-builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
+
 
 var app = builder.Build();
 
@@ -202,8 +195,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Add authorization middleware to pipeline
-app.UseRequestAuthorization();
+
+app.UseCors("AllowMyFrontend");
 
 app.UseHttpsRedirection();
 

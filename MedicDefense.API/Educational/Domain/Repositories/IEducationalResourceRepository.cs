@@ -9,4 +9,5 @@ public interface IEducationalResourceRepository : IBaseRepository<EducationalRes
     Task<EducationalResource> FindByAuthorAsync(string author);
     Task<EducationalResource> FindByTitleAsync(string title);
     Task<EducationalResource> FindByAuthorAndTitleAsync(string author, string title);
+    
 }
