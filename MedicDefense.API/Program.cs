@@ -52,7 +52,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowMyFrontend",
         builder =>
         {
-            builder.WithOrigins("http://localhost:5173/") // Replace with your frontend URL
+            builder.WithOrigins("http://localhost:5173")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
