@@ -34,6 +34,16 @@ namespace MedicDefense.API.LegalCase.Interfaces.REST
                 LegalCaseResourceFromEntityAssembler.toResourceFromEntity(result));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllLegalCases()
+        {
+            var getAllLegalCasesQuery = new GetAllLegalCasesQuery();
+            var result = await legalCaseQueryService.Handle(getAllLegalCasesQuery);
+            var resource = result.Select(LegalCaseResourceFromEntityAssembler.toResourceFromEntity);
+            return Ok(resource);
+        }
+        
+        
         [HttpGet("{id}")]
         public async Task<ActionResult> GetLegalCaseById(int id)
         {
@@ -66,7 +76,7 @@ namespace MedicDefense.API.LegalCase.Interfaces.REST
         {
             var getLegalCaseByStatusQuery = new GetLegalCaseByStatusQuery(status);
             var result = await legalCaseQueryService.Handle(getLegalCaseByStatusQuery);
-            var resource = LegalCaseResourceFromEntityAssembler.toResourceFromEntity(result);
+            var resource = result.Select(LegalCaseResourceFromEntityAssembler.toResourceFromEntity);
             return Ok(resource);
         }
     }

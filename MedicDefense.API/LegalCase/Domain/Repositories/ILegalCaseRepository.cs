@@ -8,5 +8,5 @@ public interface ILegalCaseRepository : IBaseRepository<Model.LegalCase>
     
     Task<Model.LegalCase> FindByCaseNumberAsync(string caseNumber);
     Task<Model.LegalCase> FindByDescriptionAsync(string description);
-    Task<Model.LegalCase> FindByStatusAsync(string status);
+    Task<IEnumerable<Model.LegalCase>> FindByStatusAsync(string status);
 }

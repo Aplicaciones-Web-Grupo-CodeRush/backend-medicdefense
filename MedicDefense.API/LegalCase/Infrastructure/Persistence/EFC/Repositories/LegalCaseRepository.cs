@@ -31,10 +31,11 @@ namespace MedicDefense.API.LegalCase.Infrastructure.Persistence.EFC.Repositories
                 .FirstOrDefaultAsync(l => l.Description == description);
         }
 
-        public async Task<Domain.Model.LegalCase> FindByStatusAsync(string status)
+        public async Task<IEnumerable<Domain.Model.LegalCase>> FindByStatusAsync(string status)
         {
             return await Context.Set<Domain.Model.LegalCase>()
-                .FirstOrDefaultAsync(l => l.Status == status);
+                .Where(l => l.Status == status)
+                .ToListAsync();
         }
     }
 }
