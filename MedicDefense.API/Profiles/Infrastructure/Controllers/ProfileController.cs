@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace MedicDefense.API.Profiles.Infrastructure.Controllers;
 
 [ApiController]
-[Route("api/profiles")]
+[Route("api/v1/profiles")]
 public class ProfileController : ControllerBase
 {
     private readonly IProfileCommandService _profileCommandService;
@@ -47,6 +47,14 @@ public class ProfileController : ControllerBase
         var profileResList = profiles.Select(ProfileResFromEntityAssembler.ToResourceFromEntity);
         return Ok(profileResList);
     }
+    
+    [HttpGet("lawyers")]
+    public async Task<ActionResult<IEnumerable<LawyersRes>>> GetAllLawyers()
+    {
+        var lawyers = await _profileQueryService.GetAllLawyersAsync();
+        var lawyerResList = lawyers.Select(LawyersResFromEntityAssembler.ToResourceFromEntity);
+        return Ok(lawyerResList);
+    }
 
 
 
@@ -55,5 +63,23 @@ public class ProfileController : ControllerBase
     {
         await _profileCommandService.DeleteProfile(id);
         return NoContent();
+    }
+    
+    [HttpPost("lawyers")]
+    public async Task<IActionResult> CreateLawyer([FromBody] CreateLawyersRes resource)
+    {
+        var command = CreateLawyersCommandFromResAssembler.ToCommandFromResource(resource);
+        var lawyer = await _profileCommandService.HandleCreateLawyersCommand(command);
+        return CreatedAtAction(nameof(GetLawyer), new { id = lawyer.Id }, resource);
+    }
+
+    [HttpGet("lawyers/{id}")]
+    public async Task<ActionResult<LawyersRes>> GetLawyer(int id)
+    {
+        var query = new GetLawyersByIdQuery(id);
+        var lawyer = await _profileQueryService.HandleGetLawyerByIdQuery(query);
+        if (lawyer == null) return NotFound();
+        var lawyerRes = LawyersResFromEntityAssembler.ToResourceFromEntity(lawyer);
+        return Ok(lawyerRes);
     }
 }

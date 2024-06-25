@@ -7,4 +7,8 @@ public interface IProfileQueryService
 {
     Task<Profile?> HandleGetProfileByIdQuery(GetProfileByIdQuery query);
     Task<IEnumerable<Profile>> GetAllProfilesAsync();
+    
+    Task<LawyersUsers?> HandleGetLawyerByIdQuery(GetLawyersByIdQuery query);
+    
+    Task<IEnumerable<LawyersUsers>> GetAllLawyersAsync();
 }

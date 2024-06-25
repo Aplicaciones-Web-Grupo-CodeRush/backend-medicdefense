@@ -18,6 +18,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Lawyer> Lawyers { get; set; }
     
     public DbSet<Profile> Profiles { get; set; }
+    
+    public DbSet<LawyersUsers> LawyersUsers { get; set; }
 
     
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -95,6 +97,19 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Profile>().Property(p => p.ImageUrl).IsRequired();
         builder.Entity<Profile>().Property(p => p.Specialities).IsRequired();
         builder.Entity<Profile>().Property(p => p.PhoneNumber).IsRequired();
+        
+        
+        builder.Entity<LawyersUsers>().ToTable("LawyersUsers");
+        builder.Entity<LawyersUsers>().HasKey(l => l.Id);
+        builder.Entity<LawyersUsers>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<LawyersUsers>().Property(l => l.Name).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.YearsOfExperience).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.Specialization).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.UrlToImage).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.CasesWon).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.Price).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.Email).IsRequired();
+        builder.Entity<LawyersUsers>().Property(l => l.PhoneNumber).IsRequired();
         
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         
