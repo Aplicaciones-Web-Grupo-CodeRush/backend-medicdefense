@@ -37,6 +37,11 @@ using MedicDefense.API.Payment.Application.Internal.QueryServices;
 using MedicDefense.API.Payment.Domain.Repositories;
 using MedicDefense.API.Payment.Domain.Services;
 using MedicDefense.API.Payment.Infrastructure.Persistence.EFC.Repositories;
+using MedicDefense.API.Profiles.Application.CommandServices;
+using MedicDefense.API.Profiles.Application.QueryServices;
+using MedicDefense.API.Profiles.Domain.Repositories;
+using MedicDefense.API.Profiles.Domain.Services;
+using MedicDefense.API.Profiles.Infrastructure.Persistence.EFC.Repositories;
 using MedicDefense.API.Shared.Domain.Repositories;
 using MedicDefense.API.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -176,6 +181,10 @@ builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentCommandService, PaymentCommandService>();
 builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
 
+// Profile Bounded Context Injection Configuration
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IProfileCommandService, ProfileCommandService>();
+builder.Services.AddScoped<IProfileQueryService, ProfileQueryService>();
 
 
 var app = builder.Build();

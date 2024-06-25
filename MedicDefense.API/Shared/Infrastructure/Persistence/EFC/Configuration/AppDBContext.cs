@@ -6,8 +6,7 @@ using MedicDefense.API.Communication.Domain.Model.Aggregates;
 using MedicDefense.API.Communication.Domain.Model.Aggregates;
 using MedicDefense.API.Consultation.Domain.Model.Aggregates;
 using MedicDefense.API.Educational.Domain.Model.Aggregates;
-
-
+using MedicDefense.API.Profiles.Domain.Model.Aggregates;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedicDefense.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -17,6 +16,9 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     
     public DbSet<Doctor> Doctors { get; set; } 
     public DbSet<Lawyer> Lawyers { get; set; }
+    
+    public DbSet<Profile> Profiles { get; set; }
+
     
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
@@ -83,6 +85,16 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<Lawyer>().Property(l => l.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<Lawyer>().Property(l => l.Name).IsRequired();
         builder.Entity<Lawyer>().Property(l => l.Specialty).IsRequired();
+        
+        builder.Entity<Profile>().ToTable("Profiles");
+        builder.Entity<Profile>().HasKey(p => p.Id);
+        builder.Entity<Profile>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Profile>().Property(p => p.Name).IsRequired();
+        builder.Entity<Profile>().Property(p => p.Email).IsRequired();
+        builder.Entity<Profile>().Property(p => p.DNI).IsRequired();
+        builder.Entity<Profile>().Property(p => p.ImageUrl).IsRequired();
+        builder.Entity<Profile>().Property(p => p.Specialities).IsRequired();
+        builder.Entity<Profile>().Property(p => p.PhoneNumber).IsRequired();
         
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
         
